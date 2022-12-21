@@ -1,0 +1,27 @@
+name: Chromedriver 
+
+on:
+  push: ['main']
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [16.x]
+    steps:
+      - uses: actions/checkout@v3
+      - name: Debug
+        run: |
+          echo $GITHUB_ACTION_WORKSPACE
+          echo $GITHUB_WORKSPACE
+          ls -ltrSha .
+          ls -ltrSha $GITHUB_WORKSPACE/
+
+      - name: Check versions
+        uses: jamesmortensen/chrome-chromedriver-matcher-action@main
+
+      - name: Check chromedriver version
+        run: npx chromedriver --version
+
+
