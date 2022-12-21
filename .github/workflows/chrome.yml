@@ -17,6 +17,7 @@ jobs:
           echo $GITHUB_WORKSPACE
           ls -ltrSha .
           ls -ltrSha $GITHUB_WORKSPACE/
+          npm install
 
       - name: Check versions
         uses: jamesmortensen/chromedriver-matcher-action@main
