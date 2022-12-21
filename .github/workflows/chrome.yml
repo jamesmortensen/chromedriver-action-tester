@@ -19,7 +19,7 @@ jobs:
           ls -ltrSha $GITHUB_WORKSPACE/
 
       - name: Check versions
-        uses: jamesmortensen/chrome-chromedriver-matcher-action@main
+        uses: jamesmortensen/chromedriver-matcher-action@main
 
       - name: Check chromedriver version
         run: npx chromedriver --version
