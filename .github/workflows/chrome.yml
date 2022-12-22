@@ -9,9 +9,15 @@ jobs:
     strategy:
       matrix:
         node-version: [16.x]
+        chromedriver-version: [106, 108]
     steps:
       - uses: actions/checkout@v3
-      - name: Debug
+      - name: Set system state as defaulting to chromedriver ${{ matrix.chromedriver-version }}
+        run: |
+          npm install chromedriver@${{ matrix.chromedriver-version }}
+          rm -rf node_modules/
+
+      - name: Debug and install node_modules
         run: |
           echo $GITHUB_ACTION_WORKSPACE
           echo $GITHUB_WORKSPACE
