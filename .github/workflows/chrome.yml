@@ -2,7 +2,7 @@ name: Chromedriver
 
 on:
   push:
-  #workflow_call:
+  workflow_call:
   workflow_dispatch:
 
 jobs:
@@ -11,12 +11,22 @@ jobs:
     strategy:
       matrix:
         node-version: [16.x]
-        chromedriver-version: [106, 108]
+        chromedriver-version: [106, 108, 'runner-version']
     steps:
       - uses: actions/checkout@v3
-      - name: Set system state as defaulting to chromedriver ${{ matrix.chromedriver-version }}
+      - name: Determine chromedriver version to install
+        id: version
         run: |
-          npm install chromedriver@${{ matrix.chromedriver-version }}
+          if [[ "${{ matrix.chromedriver-version }}" == "runner-version" ]]; then
+            CHROME_MAJOR_VERSION=$(google-chrome --version | sed -E "s/.* ([0-9]+)(\.[0-9]+){3}.*/\1/")
+            echo "chromedriver-version=$CHROME_MAJOR_VERSION" >> $GITHUB_OUTPUT
+          else
+            echo "chromedriver-version=${{ matrix.chromedriver-version }}" >> $GITHUB_OUTPUT
+          fi
+          
+      - name: Set system state as defaulting to chromedriver ${{ steps.version.output.chromedriver-version }}
+        run: |
+          npm install chromedriver@${{ steps.version.output.chromedriver-version }}
           rm -rf node_modules/
 
       - name: Debug and install node_modules
