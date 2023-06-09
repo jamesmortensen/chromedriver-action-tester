@@ -2,6 +2,7 @@ name: Chromedriver
 
 on:
   push:
+  workflow_call:
 
 jobs:
   deploy:
