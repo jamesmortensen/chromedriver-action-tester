@@ -2,7 +2,8 @@ name: Chromedriver
 
 on:
   push:
-  workflow_call:
+  #workflow_call:
+  workflow_dispatch:
 
 jobs:
   deploy:
