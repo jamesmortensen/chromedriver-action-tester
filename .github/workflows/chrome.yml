@@ -24,9 +24,9 @@ jobs:
             echo "chromedriver-version=${{ matrix.chromedriver-version }}" >> $GITHUB_OUTPUT
           fi
           
-      - name: Set system state as defaulting to chromedriver ${{ steps.version.output.chromedriver-version }}
+      - name: Set system state as defaulting to chromedriver ${{ steps.version.outputs.chromedriver-version }}
         run: |
-          npm install chromedriver@${{ steps.version.output.chromedriver-version }}
+          npm install chromedriver@${{ steps.version.outputs.chromedriver-version }}
           rm -rf node_modules/
 
       - name: Debug and install node_modules
